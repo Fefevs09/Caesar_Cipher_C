@@ -2,19 +2,22 @@
 #include <stdlib.h> 
 #include <string.h>
 
-void CaesaCipher(char *ptr, int tam, int num) {
-  for (int i = 0; i < tam; i++) {
+// function encrypt message
+void CaesaCipher(char *ptr, int num) {
 
-    if (*ptr >= 122) {
-      *ptr = 'a';
-      *ptr += num - 1;
-    } else {
-      *(ptr + i) = num;
+  for (int i = 0; i <= sizeof(ptr); i++) {
+    // condicion for the letter 'z'
+    if (*(ptr + i) >= 122) {
+      *(ptr + i) = 'a';
+      *(ptr + i) += num - 1;
+    } else { 
+      *(ptr + i) += num; // encrypt the letter 
     }
   }
 }
 
-char* getMesage() {
+// function to receive a message and return a pointer to message
+char* getMessage() {
   char message[100];
   char *ptr;
 
@@ -23,57 +26,29 @@ char* getMesage() {
 
   ptr = (char *) &message;
 
-  printf("%s\n", ptr);
-
-  // for (int i = 0; i < tam; i++) {
-  //   *(ptr + i) = message[i];
-  // }
   return ptr;
 }
 
-/*
-void printString(char *ptr) {
-    
-    printf("%s", ptr);
-}
-*/
-
-void testString() {
-  char menssagem[] = "Ola mundo!";
-  char *ptrMesage = (char *) &menssagem;
-
-  printf("messagem = %s", ptrMesage);
-
-  // for (int i =0; i < sizeof(menssagem); i++) {
-  //   printf("%c", menssagem[i]);
-  // }
-  // printf("%s", menssagem);
-}
-
 int main() {
-  /*
+  // declare the variables
   int number, tam;
-  char message[50];
   char *ptrMessage;
 
-  printf("Digite; qualquer numero: ");
+  // receive a number
+  printf("Digite qualquer numero: ");
   scanf("%d", &number);
 
-  ptrMessage = getMesage();
+  // ptrMessage receive a message and call function getMessage
+  ptrMessage = getMessage();
 
-  ptrMessage = "dale dele dole";
-
-  tam = sizeof(ptrMessage);
-
+  // call encrypt funcition
+  CaesaCipher(ptrMessage, number);
+  
+  // print encrypt message
   printf("%s\n", ptrMessage);
 
-  CaesaCipher(ptrMessage,tam, number);
-
-  
-  printf("%s\n", getMesage());
-  */
-
-  // printString();
+  // deallocate pointer
+  // free(ptrMessage);
 
   return 0;
 }
